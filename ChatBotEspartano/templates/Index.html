@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Bot Espartano</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(140deg, #2c3e50, #4ca1af, #cfa669);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(140deg, #434343, #4ca1af);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            margin: 0;
+            font-size: 3em;
+            text-shadow: 2px 2px #000;
+            animation: pulse 2s infinite;
+            font-weight: bold;
+            
+        }
+        h2 {
+            font-family: 'Fredoka One', cursive;
+            margin: 0;
+            font-size: 1.5em;
+            text-shadow: 2px 2px #000;
+            animation: pulse 2s infinite;
+            text-align: center;
+            color: #ffe8bc;
+        }
+
+        main {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-wrapper {
+            display: flex;
+            width: 80%;
+            max-width: 1000px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+
+        .image-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(140deg, #74d2ec, #2c3e50);
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .image-container img:hover {
+            transform: scale(0.9);
+        }
+
+        .chat-container {
+            flex: 1;
+            background: linear-gradient(140deg, #2c3e50, #4ca1af);
+            border-radius: 15px;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #chat-box {
+            flex: 1;
+            border: 1px solid #4ca1af;
+            border-radius: 10px;
+            height: 400px; /* altura fija */
+            overflow-y: auto; /* scroll vertical */
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #1f1c2c;
+        }
+
+        .message {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 15px;
+            font-size: 1em;
+        }
+
+        .message.bot {
+            background: linear-gradient(140deg, #434343, #4ca1af);
+            text-align: left;
+            color: #f3eded;
+            font-family: 'Fredoka One', cursive;
+            
+        }
+
+        .message.user {
+            background: linear-gradient(140deg, #e4f0a9, #c9b638);
+            text-align: right;
+            color: #ffffff;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #4ca1af;
+            border-radius: 10px 0 0 10px;
+            font-size: 1em;
+            background-color: #1f1c2c;
+            color: #fff;
+        }
+
+        footer {
+            background: linear-gradient(140deg, #434343, #4ca1af);
+            color: #fff;
+            text-align: center;
+            padding: 1px;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #chatbox {
+            flex: 1;
+            background: linear-gradient(140deg, #2c3e50, #4ca1af);
+            border-radius: 15px;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            background-color: #1f1c2c;
+        }
+        #messages {
+            border: 1px solid #4ca1af;
+            border-radius: 10px;
+            height: 500px; /* altura fija */
+            overflow-y: auto; /* scroll vertical */
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #1f1c2c;
+        }
+
+        /* Personalización del scrollbar */
+        #messages::-webkit-scrollbar {
+            width: 15px; /* Ancho del scrollbar */
+        }
+
+        #messages::-webkit-scrollbar-track {
+            background: #1f1c2c; /* Color de fondo del track del scrollbar */
+            border-radius: 10px;
+        }
+
+        #messages::-webkit-scrollbar-thumb {
+            background: #fafafa; /* Color del thumb del scrollbar */
+            border-radius: 10px;
+            border: 3px solid #1f1c2c; /* Espacio alrededor del thumb */
+        }
+
+        #messages::-webkit-scrollbar-thumb:hover {
+            background: #de9797; /* Color del thumb del scrollbar al pasar el mouse */
+        }
+
+        #input {
+            display: flex;
+        }
+        #input input {
+            flex: 1;
+            padding: 10px;
+            background-color: #1f1c2c;
+            color: #ffffff;
+            font-family: 'Fredoka One', cursive;
+            font-weight: bold;
+        }
+        #input button {
+            padding: 15px;
+            border: 1px solid #4ca1af;
+            background: linear-gradient(140deg, #c0e218, #c6ed39);
+            color: #fff;
+            border-radius: 0 10px 10px 0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        #input button:hover {
+            background: linear-gradient(140deg, #a9c938, #18e29f);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Chat Bot Espartano</h1>
+    </header>
+    <br><br>
+    <h2>¡Hola! Soy tu Chat Bot Espartano. ¿En qué puedo ayudarte hoy?</h2>
+    <main>
+        <div class="content-wrapper">
+            <div class="image-container">
+               <img src="/static/Img/espartano.png" alt="Imagen de un espartano">
+            </div>
+            <div id="chatbox">
+                <div id="messages"></div>
+                <div id="input">
+                    <input type="text" id="userInput" placeholder="Escribe tu mensaje al ChatBot Espartano...">
+                    <button onclick="sendMessage()">Enviar</button>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+    <footer>
+        <p>&copy; 2024 Chat Bot Espartano.</p>
+    </footer>
+
+    <script>
+        async function sendMessage() {
+            const userMessage = document.getElementById('userInput').value;
+            if (userMessage.trim() === "") return;
+
+            // Añadir el mensaje del usuario a la pantalla
+            const userMessageElement = document.createElement('div');
+            userMessageElement.className = 'message user';
+            userMessageElement.innerText = userMessage;
+            document.getElementById('messages').appendChild(userMessageElement);
+
+            // Limpiar el campo de entrada
+            document.getElementById('userInput').value = '';
+
+            // Enviar el mensaje al servidor y obtener la respuesta
+            const response = await fetch('/send-message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: userMessage })
+            });
+            const data = await response.json();
+
+            // Añadir la respuesta del bot a la pantalla
+            const botMessageElement = document.createElement('div');
+            botMessageElement.className = 'message bot';
+            botMessageElement.innerText = data.message;
+            document.getElementById('messages').appendChild(botMessageElement);
+
+            // Hacer scroll hacia abajo
+            document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight;
+        }
+    </script>
+</body>
+</html>
